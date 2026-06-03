@@ -31,8 +31,8 @@ export function Navbar() {
         )}
       >
         <Link to="inicio" smooth duration={700} className="cursor-pointer">
-          <span className="font-mono text-xs uppercase tracking-[0.28em] text-zinc-50">AB</span>
-          <span className="font-mono text-xs uppercase tracking-[0.28em] text-amber-400">Tech</span>
+          <span className="font-mono text-xs uppercase tracking-[0.22em] text-zinc-50">Antobriox</span>
+          <span className="font-mono text-xs uppercase tracking-[0.22em] text-amber-400">DEV</span>
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">

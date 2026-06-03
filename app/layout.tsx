@@ -13,12 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Antonio Briones | Desarrollador Full Stack",
+  title: "AntobrioxDEV | Antonio Briones",
   description:
     "Portafolio profesional de Antonio Briones, desarrollador Full Stack especializado en aplicaciones web modernas, escalables y centradas en el usuario.",
-  metadataBase: new URL("https://antonio-briones.dev"),
+  metadataBase: new URL("https://antobriox.dev"),
   openGraph: {
-    title: "Antonio Briones | Desarrollador Full Stack",
+    title: "AntobrioxDEV | Antonio Briones",
     description:
       "Aplicaciones web modernas con rendimiento, escalabilidad y una identidad visual inspirada en precision JDM.",
     type: "website",
