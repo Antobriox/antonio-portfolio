@@ -18,6 +18,7 @@ type BuildCopy = {
 };
 
 type ExperienceCopy = {
+  year?: string;
   role: string;
   description: string;
 };
@@ -117,17 +118,23 @@ const copy = {
       title: "Experiencia profesional enfocada en sistemas reales.",
       items: [
         {
-          role: "Ingeniero de Desarrollo de Software",
+          year: "2026",
+          role: "Ingeniero en Software",
+          description:
+            "Apoyé al área de desarrollo de software TIC en el desarrollo y mantenimiento de sistemas institucionales, el análisis de requerimientos y la resolución de incidencias.",
+        },
+        {
+          role: "Ingeniero en Software",
           description:
             "Participe en el desarrollo de un sistema de gestion empresarial mediante nuevos modulos funcionales, modelado de bases de datos relacionales y registros de auditoria. Implemente procesos para el seguimiento historico de activaciones e inactivaciones de servicios, garantizando integridad, trazabilidad y disponibilidad de informacion.",
         },
         {
-          role: "Ingeniero de Desarrollo de Software",
+          role: "Ingeniero en Software",
           description:
             "Desarrolle funcionalidades web y participe en la consolidacion de informacion proveniente de multiples fuentes de datos. Implemente sistemas de gestion de cookies y soluciones orientadas a la integracion y centralizacion de informacion empresarial.",
         },
         {
-          role: "Ingeniero de Desarrollo de Software",
+          role: "Ingeniero en Software",
           description:
             "Brinde soporte tecnico en la incorporacion de mas de 100 equipos a infraestructura corporativa. Ademas, desarrolle un sistema web para la gestion de informes de reuniones cantonales, optimizando acceso, organizacion y documentacion institucional.",
         },
@@ -243,17 +250,23 @@ const copy = {
       title: "Professional experience focused on real systems.",
       items: [
         {
-          role: "Software Development Engineer",
+          year: "2026",
+          role: "Software Engineer",
+          description:
+            "Supported the ICT software development team in developing and maintaining institutional systems, analyzing requirements, and resolving issues.",
+        },
+        {
+          role: "Software Engineer",
           description:
             "Participated in the development of a business management system by implementing functional modules, relational database modeling, and audit records. Implemented processes to track historical service activations and deactivations, ensuring integrity, traceability, and data availability.",
         },
         {
-          role: "Software Development Engineer",
+          role: "Software Engineer",
           description:
             "Developed web features and helped consolidate information from multiple data sources. Implemented cookie management systems and solutions focused on integrating and centralizing business information.",
         },
         {
-          role: "Software Development Engineer",
+          role: "Software Engineer",
           description:
             "Provided technical support for adding more than 100 devices to corporate infrastructure. Also developed a web system for managing cantonal meeting reports, improving access, organization, and institutional documentation.",
         },

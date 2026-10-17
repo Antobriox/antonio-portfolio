@@ -19,12 +19,13 @@ export function Experience() {
             <FadeIn key={`${item.company}-${item.year}`} delay={index * 0.08}>
               <article className="grid gap-4 rounded-lg border border-zinc-800 bg-zinc-950/72 p-5 transition hover:border-amber-400/40 md:grid-cols-[8rem_1fr] md:pl-12">
                 <div className="flex items-center gap-2 font-mono text-sm text-amber-300">
-                  <Calendar className="size-4" />
-                  {item.year}
+                  <Calendar aria-hidden="true" className="size-4 shrink-0" />
+                  <span>{item.year}</span>
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-zinc-50">{item.role}</h3>
                   <p className="mt-1 text-sm uppercase tracking-[0.18em] text-red-400">{item.company}</p>
+                  {item.location ? <p className="mt-2 text-sm text-zinc-400">{item.location}</p> : null}
                   <p className="mt-4 leading-8 text-zinc-300">{item.description}</p>
                   {item.technologies ? (
                     <div className="mt-5 flex flex-wrap gap-2">

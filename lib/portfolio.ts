@@ -20,7 +20,7 @@ export const techGroups: TechGroup[] = [
   },
   {
     title: "Backend",
-    items: ["Node.js", "Express.js", "NestJS", "Flask"],
+    items: ["Node.js", "Express.js", "NestJS", "Python", "Django", "Flask"],
   },
   {
     title: "Bases de Datos",
@@ -72,15 +72,23 @@ export const builds: Build[] = [
 
 export const experiences: Experience[] = [
   {
+    year: "2026",
+    role: "Ingeniero en Software",
+    company: "Dirección del Parque Nacional Galápagos",
+    location: "Puerto Ayora, Galápagos",
+    description:
+      "Apoyé al área de desarrollo de software TIC en el desarrollo y mantenimiento de sistemas institucionales, el análisis de requerimientos y la resolución de incidencias.",
+  },
+  {
     year: "2025",
-    role: "Ingeniero de Desarrollo de Software",
+    role: "Ingeniero en Software",
     company: "Robert Ponce Company S.A.S",
     description:
       "Participe en el desarrollo de un sistema de gestion empresarial mediante nuevos modulos funcionales, modelado de bases de datos relacionales y registros de auditoria. Implemente procesos para el seguimiento historico de activaciones e inactivaciones de servicios, garantizando integridad, trazabilidad y disponibilidad de informacion.",
   },
   {
     year: "2024",
-    role: "Ingeniero de Desarrollo de Software",
+    role: "Ingeniero en Software",
     company: "Sistemas Informaticos Genesis",
     description:
       "Desarrolle funcionalidades web y participe en la consolidacion de informacion proveniente de multiples fuentes de datos. Implemente sistemas de gestion de cookies y soluciones orientadas a la integracion y centralizacion de informacion empresarial.",
@@ -88,7 +96,7 @@ export const experiences: Experience[] = [
   },
   {
     year: "2024",
-    role: "Ingeniero de Desarrollo de Software",
+    role: "Ingeniero en Software",
     company: "Prefectura de Manabi",
     description:
       "Brinde soporte tecnico en la incorporacion de mas de 100 equipos a infraestructura corporativa. Ademas, desarrolle un sistema web para la gestion de informes de reuniones cantonales, optimizando acceso, organizacion y documentacion institucional.",

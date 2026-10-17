@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowDownRight, Gauge, Mail, MapPin, RadioTower } from "lucide-react";
-import { Link } from "react-scroll";
 
 import { FadeIn } from "@/components/animations/FadeIn";
 import { MagneticButton } from "@/components/animations/MagneticButton";
@@ -13,7 +12,7 @@ export function Hero() {
   const { t } = useI18n();
 
   return (
-    <section id="inicio" className="relative min-h-screen overflow-hidden bg-[#0B0B0B] px-5 pt-32 text-[#F5F5F5] sm:px-8">
+    <section id="inicio" tabIndex={-1} className="relative min-h-screen overflow-hidden bg-[#0B0B0B] px-5 pt-32 text-[#F5F5F5] sm:px-8">
       <div className="absolute inset-0 opacity-70">
         <div className="absolute inset-x-0 bottom-0 h-[44%] bg-[linear-gradient(105deg,transparent_0_42%,rgba(245,158,11,0.14)_42.3%,transparent_43.2%,transparent_57%,rgba(245,245,245,0.13)_57.4%,transparent_58.2%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_76%_18%,rgba(220,38,38,0.22),transparent_28%),radial-gradient(circle_at_12%_82%,rgba(30,41,59,0.55),transparent_32%)]" />
@@ -40,18 +39,14 @@ export function Hero() {
             <p className="mt-4 max-w-2xl text-base leading-8 text-zinc-400">{t.hero.paragraphTwo}</p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="builds" smooth offset={-84} duration={700}>
-                <MagneticButton>
-                  {t.hero.projects}
-                  <ArrowDownRight className="size-4" />
-                </MagneticButton>
-              </Link>
-              <Link to="contacto" smooth offset={-84} duration={700}>
-                <MagneticButton variant="ghost">
-                  {t.hero.contact}
-                  <Mail className="size-4" />
-                </MagneticButton>
-              </Link>
+              <MagneticButton href="#builds">
+                {t.hero.projects}
+                <ArrowDownRight className="size-4" />
+              </MagneticButton>
+              <MagneticButton href="#contacto" variant="ghost">
+                {t.hero.contact}
+                <Mail className="size-4" />
+              </MagneticButton>
             </div>
 
             <div className="mt-10 flex flex-wrap gap-2">

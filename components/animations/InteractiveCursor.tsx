@@ -2,8 +2,10 @@
 
 import { useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 export function InteractiveCursor() {
+  const reducedMotion = useReducedMotion();
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
   const springX = useSpring(mouseX, { stiffness: 260, damping: 28 });
@@ -12,7 +14,7 @@ export function InteractiveCursor() {
   useEffect(() => {
     const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    if (!canHover) return;
+    if (!canHover || reducedMotion) return;
 
     const update = (event: MouseEvent) => {
       mouseX.set(event.clientX - 12);
@@ -21,7 +23,9 @@ export function InteractiveCursor() {
 
     window.addEventListener("mousemove", update);
     return () => window.removeEventListener("mousemove", update);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, reducedMotion]);
+
+  if (reducedMotion) return null;
 
   return (
     <motion.div

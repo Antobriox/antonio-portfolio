@@ -3,7 +3,6 @@
 import { Loader2, Send } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { FadeIn } from "@/components/animations/FadeIn";
@@ -13,23 +12,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useI18n } from "@/lib/i18n";
-
-type ContactForm = {
-  name: string;
-  email: string;
-  message: string;
-};
+import { CONTACT_LIMITS, createContactSchema, submitContact, type ContactForm } from "@/lib/contact";
 
 export function Contact() {
   const { t, contactLinks } = useI18n();
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const contactSchema = useMemo(
-    () =>
-      z.object({
-        name: z.string().min(2, t.contact.errors.name),
-        email: z.email(t.contact.errors.email),
-        message: z.string().min(12, t.contact.errors.message),
-      }),
+    () => createContactSchema(t.contact.errors),
     [t]
   );
   const {
@@ -43,13 +32,7 @@ export function Contact() {
 
   const onSubmit = async (values: ContactForm) => {
     setStatus("idle");
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-
-    if (!response.ok) {
+    if (!(await submitContact(values))) {
       setStatus("error");
       return;
     }
@@ -89,23 +72,23 @@ export function Contact() {
         </FadeIn>
 
         <FadeIn delay={0.12}>
-          <form onSubmit={handleSubmit(onSubmit)} className="rounded-lg border border-zinc-800 bg-zinc-950/72 p-6">
+          <form onSubmit={handleSubmit(onSubmit)} aria-busy={isSubmitting} className="rounded-lg border border-zinc-800 bg-zinc-950/72 p-6">
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="grid gap-2 text-sm text-zinc-300">
                 {t.contact.fields.name}
-                <Input className="border-zinc-800 bg-[#18181B] text-zinc-50" {...register("name")} />
-                {errors.name ? <span className="text-xs text-red-300">{errors.name.message}</span> : null}
+                <Input autoComplete="name" readOnly={isSubmitting} maxLength={CONTACT_LIMITS.name} aria-invalid={!!errors.name} aria-describedby={errors.name ? "contact-name-error" : undefined} className="border-zinc-800 bg-[#18181B] text-zinc-50" {...register("name")} />
+                {errors.name ? <span id="contact-name-error" className="text-xs text-red-300">{errors.name.message}</span> : null}
               </label>
               <label className="grid gap-2 text-sm text-zinc-300">
                 {t.contact.fields.email}
-                <Input className="border-zinc-800 bg-[#18181B] text-zinc-50" type="email" {...register("email")} />
-                {errors.email ? <span className="text-xs text-red-300">{errors.email.message}</span> : null}
+                <Input autoComplete="email" readOnly={isSubmitting} maxLength={CONTACT_LIMITS.email} aria-invalid={!!errors.email} aria-describedby={errors.email ? "contact-email-error" : undefined} className="border-zinc-800 bg-[#18181B] text-zinc-50" type="email" {...register("email")} />
+                {errors.email ? <span id="contact-email-error" className="text-xs text-red-300">{errors.email.message}</span> : null}
               </label>
             </div>
             <label className="mt-4 grid gap-2 text-sm text-zinc-300">
               {t.contact.fields.message}
-              <Textarea className="min-h-36 border-zinc-800 bg-[#18181B] text-zinc-50" {...register("message")} />
-              {errors.message ? <span className="text-xs text-red-300">{errors.message.message}</span> : null}
+              <Textarea readOnly={isSubmitting} maxLength={CONTACT_LIMITS.message} aria-invalid={!!errors.message} aria-describedby={errors.message ? "contact-message-error" : undefined} className="min-h-36 border-zinc-800 bg-[#18181B] text-zinc-50" {...register("message")} />
+              {errors.message ? <span id="contact-message-error" className="text-xs text-red-300">{errors.message.message}</span> : null}
             </label>
 
             <div className="mt-6 flex flex-wrap items-center gap-4">
@@ -113,7 +96,7 @@ export function Contact() {
                 disabled={isSubmitting}
                 className="h-11 rounded-lg border-red-500/60 bg-red-600 px-5 font-semibold text-white hover:bg-red-500"
               >
-                {isSubmitting ? <Loader2 className="mr-2 size-4 animate-spin" /> : <Send className="mr-2 size-4" />}
+                {isSubmitting ? <Loader2 aria-hidden="true" className="mr-2 size-4 animate-spin motion-reduce:animate-none" /> : <Send aria-hidden="true" className="mr-2 size-4" />}
                 {t.contact.fields.submit}
               </Button>
               <MagneticButton href="mailto:antoniobriones1910@gmail.com" variant="ghost">
@@ -121,10 +104,10 @@ export function Contact() {
               </MagneticButton>
             </div>
 
-            {status === "success" ? <p className="mt-4 text-sm text-amber-200">{t.contact.success}</p> : null}
-            {status === "error" ? (
-              <p className="mt-4 text-sm text-red-300">{t.contact.error}</p>
-            ) : null}
+            <div role="status" aria-live="polite" aria-atomic="true">
+              {status === "success" ? <p className="mt-4 text-sm text-amber-200">{t.contact.success}</p> : null}
+              {status === "error" ? <p className="mt-4 text-sm text-red-300">{t.contact.error}</p> : null}
+            </div>
           </form>
         </FadeIn>
       </div>
