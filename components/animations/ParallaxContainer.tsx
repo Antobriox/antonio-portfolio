@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import Tilt from "react-parallax-tilt";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 type ParallaxContainerProps = {
   children: ReactNode;
@@ -9,6 +10,10 @@ type ParallaxContainerProps = {
 };
 
 export function ParallaxContainer({ children, className }: ParallaxContainerProps) {
+  const reducedMotion = useReducedMotion();
+
+  if (reducedMotion) return <div className={className}>{children}</div>;
+
   return (
     <Tilt
       className={className}

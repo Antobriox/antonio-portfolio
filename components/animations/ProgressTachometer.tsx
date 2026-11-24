@@ -7,6 +7,7 @@ import { useMemo, useRef } from "react";
 import type { Group } from "three";
 
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const START_ANGLE = 2.25;
 const SWEEP_ANGLE = 4.5;
@@ -86,6 +87,10 @@ function Dial({ progress }: { progress: number }) {
 
 export function ProgressTachometer() {
   const progress = useScrollProgress();
+  const reducedMotion = useReducedMotion();
+
+  // The decorative dial, floating scene and counting effect are optional.
+  if (reducedMotion) return null;
 
   return (
     <div className="fixed bottom-4 right-4 z-50 hidden h-28 w-28 rounded-lg border border-zinc-800/80 bg-zinc-950/70 shadow-[0_0_30px_rgba(245,158,11,0.12)] backdrop-blur md:block">

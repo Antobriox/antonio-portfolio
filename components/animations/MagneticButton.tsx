@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, type MouseEvent, type ReactNode } from "react";
+import { useEffect, useRef, type MouseEvent, type ReactNode } from "react";
 import gsap from "gsap";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 type MagneticButtonProps = {
   children: ReactNode;
@@ -15,10 +16,21 @@ type MagneticButtonProps = {
 
 export function MagneticButton({ children, className, href, variant = "primary" }: MagneticButtonProps) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
+  const reducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    if (reducedMotion) {
+      gsap.killTweensOf(element);
+      gsap.set(element, { clearProps: "transform" });
+    }
+    return () => { gsap.killTweensOf(element); };
+  }, [reducedMotion]);
 
   const move = (event: MouseEvent) => {
     const element = ref.current;
-    if (!element) return;
+    if (!element || reducedMotion || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
     const rect = element.getBoundingClientRect();
     const x = event.clientX - rect.left - rect.width / 2;
@@ -28,7 +40,7 @@ export function MagneticButton({ children, className, href, variant = "primary" 
   };
 
   const reset = () => {
-    if (ref.current) {
+    if (ref.current && !reducedMotion) {
       gsap.to(ref.current, { x: 0, y: 0, duration: 0.45, ease: "elastic.out(1, 0.35)" });
     }
   };

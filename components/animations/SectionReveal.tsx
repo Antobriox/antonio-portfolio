@@ -15,7 +15,7 @@ type SectionRevealProps = {
 
 export function SectionReveal({ id, eyebrow, title, children, className }: SectionRevealProps) {
   return (
-    <section id={id} className={cn("relative scroll-mt-28 py-20 sm:py-28", className)}>
+    <section id={id} tabIndex={-1} className={cn("relative scroll-mt-28 py-20 sm:py-28", className)}>
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
         <FadeIn>
           <div className="mb-10 flex flex-col gap-3 sm:mb-14">
